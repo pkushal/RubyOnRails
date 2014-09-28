@@ -45,3 +45,136 @@ If you go to http://localhost:3000/pages/home then it should give something back
 
 
 
+
+
+Chapter 3: 17
+Now we are going to add a new page called about in the project using TDD.
+TDD is like writing test code before writing the application.
+
+Just for the proference I am deleting files as
+git rm -r spec/views
+git rm -r spec/helpers
+-r is for recursive
+
+
+then to do TDD, do rspec/spec
+In order to speed up the TDD, we are using spork
+
+http://www.rubyinside.com/how-to-rails-3-and-rspec-2-4336.html
+
+autotest
+
+In the pages_controller_spec.rb file if we add a test for about pages as
+describe "GET about" do
+    it "returns http success" do
+      get :about
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+   and do the rspec/spec then it will give error saying there is no route to the about page. Ok.
+   SO now add the routes to about page in the routes.rb and do the rspec again. Now there will be different error saying
+   no action to the about page. SO we define action to about page in the controllers > pages_controller.rb as
+  def about
+  end
+
+  Now run the rspec again. There is a new error saying missing template pages/about i.e. views
+  See there is not about.html.erb file in the views.SO I need to create one named about.html.erb
+  and you can put anything you like in that about.html.erb page
+
+  Now if you do the rspec/spec it will have no error. 
+  Conclusion: To add a new page you will have to configure it in routes.rb to give route (see the mvc_detailed .jpg), then 
+  we will need configure the controller in pages_controller.rb and finally need to configure the views by adding about.html.erb
+  file. (ROUTES--CONTROLLER--VIEWS) See the mvc_detailed.jpg makes sense.
+  Here rspec is helping us to do the test.
+  You can now also do the localhost:3000/pages/about
+
+
+
+
+
+
+  Chapter 3: Slightly Dymanic Pages
+  As of now all the home, about and contact pages have the same tile (Sample App). We will now change it to the specific name.
+  SO we add a test in the spec file as 
+    describe "GET home" do
+    it "returns http success" do
+      get :home
+      expect(response).to have_http_status(:success)
+    end
+
+    it "should have the right title" do
+      get :home
+      response.should have_selector("title", 
+                      :content => "Ruby On Rails Tutorial Sample App | Home")
+  end
+end
+
+and do the rspec. It will fail. SO add the title in the home page and run the spec. It will fail again 
+becasue we deleted a view spec so need to add the following code in the spec file as
+
+require 'rails_helper'
+
+RSpec.describe PagesController, :type => :controller do
+  render_views
+  .... so other codes
+
+
+
+Even though we change the title of the pages we will still get the same Sample App title. Go to the localhost:3000/pages/home
+and do Ctrl + U, you will see the two title. By default rails generate the other title. That file is in views > Layouts. Check that. It is coming from there.
+
+
+Now all the home, contact and about page has same code in the head only minor changes in the title and the body. Duplication in the views.
+
+Now it is interesting, in the pages_controller, we add
+class PagesController < ApplicationController
+  def home
+  	@title ="Home"
+  end
+  ....
+
+  and then in the home.html.erb we make the thing dynamic as:
+  <head>
+		<title>Ruby On Rails Tutorial Sample App | <%= @title%></title>
+	</head>
+
+	<%= %> will insert the content of the varibale as <%= @title %>
+
+Now let's put all the common code in the application.html.erb as:
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ruby On Rails | <%= @title %></title>
+		<%= csrf_meta_tag%> // add this line for cross site request forgery
+							// this will prevent attacks to your website
+	</head>
+
+	<body>
+		<%= yield %>
+	</body>
+</html>
+ 
+ Here <%= yield %> will pull contents from the home, about and the contact pages.
+ Now in the home, about and contact we willhave only,
+ 		<h1>This is the home Page for Ruby on Rails</h1>
+		<p>Hey Kushal How is it going?</p>
+
+
+http://www.rubular.com/    you can check the regular expression here.
+
+Below is the code to test if the body is empty or not i.e, checking if <%=yeild%> is working or not
+ it "should not have empty body" do
+    get :home
+    response.body.should_not =~/<body>\s*<\/body>/
+  end
+
+Run the rspec and it will pass once you do the yield thing.  
+<body>\s*<\/body> was generated from the rubular.com
+
+
+
+Chapter 3: Conclusion
+
+
