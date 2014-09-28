@@ -1,2 +1,47 @@
 rails new sample_app -T // this -T will prevent rails from creating the test directory as we
 want to use our own testing thing
+
+Make changes to your gem file if you need to
+In this project, I added
+
+group :development do
+	gem 'rspec-rails', '3.1.0'
+end
+
+
+group :test do
+	gem 'rspec', '3.1.0'
+end
+
+to the gem file
+
+
+
+Then run bundle install
+rails generate rspec:install  // to install some file for rspec
+
+Now edit the .gitignore file as required and do the git.
+
+In the new cmd, do rails s to run the server so that you can do localhost:3000 in the webbrowser.
+
+In the public folder you can create a hello.html file and write some html codes. Then go to the webbrowser and
+do localhost:3000/hello.html to see that html document.
+This is one way to create a static webpage in rails.
+
+Now the second way:
+
+We will have pages like home, contact, about. So we will also create a controller to control all the pages.
+DO
+rails generate Pages home contact
+
+Now you should be able to see a pages_controlller.rb file in the app>controllers
+Also check the views in the app folder, you should see the pages folder with home.html.erb and contact.html.erb
+
+See the mvc_detailed.jpg and also see the routes.rb file in the config folder. You should see the   
+get 'pages/home'  
+get 'pages/contact' in the file
+
+If you go to http://localhost:3000/pages/home then it should give something back in the browser.
+
+
+
