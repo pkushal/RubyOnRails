@@ -176,6 +176,7 @@ Run the rspec and it will pass once you do the yield thing.
 
 
 Chapter 4: Adding Styles
+
 We will include the CSS, Learn little bit of Ruby and OOPs
 If we delete the <%=@title %> in say, home.html.erb then it will only give the half of the title. We have a generic 
 title in the helper file in the app > helper > application_helper.rb or pages_helper.rb. Both are like same in this case.
@@ -215,4 +216,21 @@ def contact
 Then the title will be RoR Sample else Ruby On Rails | Contact
 
 
+http://blueprintcss.org/ is the CSS framework that cuts down the development time
 
+
+Add this code to the app>Initializer>assets.rb
+Rails.application.config.assets.precompile += %w( blueprint/screen.css )
+Rails.application.config.assets.precompile += %w( blueprint/print.css)
+
+Then add
+<%= stylesheet_link_tag 'blueprint/screen', :media=> 'screen'%>
+<%= stylesheet_link_tag 'blueprint/print', :media=> 'print'%> in the head of the application.html.erb
+
+then copy the blueprint folder to the app\assets\stylesheets and restart the server
+Then it should give you the styles according to the blueprint
+
+
+Now we will focus on the basic Ruby syntax:
+
+do rails c for opening the rails console.
