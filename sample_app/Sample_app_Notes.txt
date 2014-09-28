@@ -1,0 +1,2 @@
+rails new sample_app -T // this -T will prevent rails from creating the test directory as we
+want to use our own testing thing

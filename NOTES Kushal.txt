@@ -1,0 +1,72 @@
+Scaffolding method is not used in real app development.
+
+In MVC,
+Model is user.rb   It will connect to the database
+View is index.html.erb
+Controller is users_controller.rb  All request goes to the controller
+
+For every application we need to think what kind of data model we are going to use. Like user having integer id, String name , string email.
+
+
+rails new myapp
+set up git
+check the local host at port 3000
+
+rails generate scaffold User name:string email:string
+
+rails destroy scaffold User will delete the User data model
+
+While browsing in the URL, need to do plural of User
+
+This will generate a proper database to manipulate name email etc and store in database
+
+rake db:migrate  
+
+rake db:rollback will rollback the db migrate
+
+localhost:3000
+localhost:3000/users
+
+http://localhost:3000/users/1  here 1 is the user id
+Flash Message
+
+If I delete that user with id =1 and then create a new user then its id will be 2 not 1
+
+when we do localhost:3000/user it is routed to the rails router and then routed to the index action to one of the controller. Contoller asks the model about the user and  pulls the info ..return the user as list to controller. It then passes a variable to view  and the view renders a HTML which is displayed to the browser.
+
+Rails router is done by config > routes.rb
+
+< defines the inheritance in ruby
+@ is the instance variable
+
+html.erb is the embeds ruby code inside html file...erb is embedded ruby
+
+List of routes corresponding the different URLs
+HTTP request : GET, POST, PUT, DELETE
+
+REST(representational state transfer) has certain structures of URLS and HTTP request
+
+Scaffolding just creates the rudimentary web application ....no data validation, no test just basic stuffs
+
+rails console 
+It is for interacting the rails application with command line
+In the rails console we can do like User.all
+user= User.first
+user.email
+
+In model, class User < ActiveRecord::Base means , User class is a sub class of class ActiveRecord::Base
+Similar is true for ApplicationController and ApplicationController::Base
+whenever we do rails generate, it kinda creates classes with the attributes.
+
+
+Chapter 3:
+9/28/2014
+
+Mostly Static Webpages
+Firstly we will make the static web pages using the HTML and then slightly dymanic pages using embedded ruby.
+We will also use the automated testing and test drive development(TDD). We will also refactor the webpage using the
+rails technique called layouts.
+
+See the Sample_app Notes inside the sample_app folder.
+				-see ya there
+
