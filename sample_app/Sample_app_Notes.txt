@@ -175,6 +175,44 @@ Run the rspec and it will pass once you do the yield thing.
 
 
 
-Chapter 3: Conclusion
+Chapter 4: Adding Styles
+We will include the CSS, Learn little bit of Ruby and OOPs
+If we delete the <%=@title %> in say, home.html.erb then it will only give the half of the title. We have a generic 
+title in the helper file in the app > helper > application_helper.rb or pages_helper.rb. Both are like same in this case.
+
+module ApplicationHelper
+
+	 #Return a title on a per page
+	 def title
+	 	base_title ="RoR Sample"
+	 	if @title.nil?
+	 		base_title
+	 	else
+	 		"#{base_title} | #{@title}"
+	 		// OR "Ruby On Rails | #{@title}"
+	 	end
+	 end
+end
+
+And we will need to change the application.html.erb file as
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%=title%></title>  // no @ sign this time
+		<%= csrf_meta_tag%>
+	</head>
+
+	<body>
+		<%= yield %>
+	</body>
+</html>
+
+
+If I delete the 
+def contact
+  	@title ="Contact" //delete this line
+  end
+Then the title will be RoR Sample else Ruby On Rails | Contact
+
 
 
