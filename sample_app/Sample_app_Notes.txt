@@ -232,5 +232,336 @@ Then it should give you the styles according to the blueprint
 
 
 Now we will focus on the basic Ruby syntax:
+__________________________________________________
+
+
 
 do rails c for opening the rails console.
+
+"" #empty string
+"Kushal"  # non empty string
+"kushal" + "Pradhan" is allowed to concatenate strings
+"foo".concat("bar") is also allowed
+
+first ="Kushal"
+"#{first} Pradhan" will return Kushal Pradhan
+last ="Pradhan"
+
+"#{first} #{last}" will return Kushal Pradhan
+This is called string interpolation
+
+We can also do first + " " + last
+
+We did the same in "#{base_title} | #{@title}"
+
+
+puts is the command to print.
+We can do puts "Kushal"
+We can do print first
+
+
+Single quotated string:
+
+In the console,
+"foo\n" will give "foo\n"
+'foo\n' will give "foo\\n"
+
+\n refers to the new line whiel ' ' will give \ and a new line
+Single quotes will not interpolate the strings like the double quotes.
+
+we can do:
+
+	"Kushal".length will give 6
+	"Kushal".empty? will return false
+
+s="kushal"
+if s.empty?
+	"Empty"
+else
+	"not empty"
+
+
+x="foo"
+y=""
+puts "Both strings empty" if x.empty? && y.empty?
+puts "one strings empty" if x.empty? || y.empty?
+
+if x.empty? && y.empty?
+	puts "both empty"
+end
+
+puts "x is not empty" if !x.empty?  is same as
+puts "x is not empty" unless x.empty?
+
+to_s method is like toString method
+nil.to_s will give ""
+
+nil.to_s.empty? will return true.
+
+
+"".empty? is true
+" ".empty? is false
+
+first.class will return which class it belongs..it will return String
+
+nil is the only object that is false by default other than false
+if nil
+	"TRUE"
+else
+	"FALSE"
+
+
+	This will return false. 0 is TRUE
+
+To get the boolean of any thing use bang bang as
+!!nil  is false
+!!0    is true
+
+
+Method Definition:
+
+def string_message(something_crazy)
+	if something_crazy.nil?
+		"It's nil"
+	else
+		It's something
+	end	
+end
+
+then we can all it as
+
+string_message("") will give It's something
+string_message(nil) will give It's nil
+string_message(puts "foobar") will give It's nil
+because
+puts "foobar" will display foobar and give nil so..
+
+
+module is a group of methods or function.
+
+
+Other Datastructures:
+<%= stylesheet_link_tag 'blueprint/screen', :media=> 'screen'%>
+
+Here  :media=> 'screen' is a hash. 
+
+Array:
+"foo bar    baz".split
+ will give an array of strings as ["foo", "bar", "baz"]
+
+ We can also use "fooxxbarxxbax".split("xx")
+ Array can have anything.
+ a=[42,6,54]
+ a[0] is 42 and so on
+ a[-1] is allowed and wraps around from the other side and is 54 here
+
+ a.first is allowed is 42
+ a.second is allowed is 6
+ a.last is allowed is 42
+ a.length is 3
+ a.empty? is false
+ a==[42,6,54] will give TRUE
+
+ google ruby api for details
+
+ a.sort will just show the sorted array but doesn't modify the array
+ to modify tha array as well we need to do is a.sort!
+ similarly, a.reverse!, a.shuffle!
+
+ Range:
+ 1..23
+ (1..23).to_a will give array with numbers from 1 to 23. to_a will convert
+ to array.
+
+
+ a<<9 will add 9 at last
+ we can mix data types in array
+
+ we can do a<<"foo"
+ 	or we can do like a<<(1..5)
+We can put anything in array
+
+a<<%w[foo bar baz] we are putting another array in a array 
+
+Enumerable:
+(1..5).each {|i| puts 2**i} will give
+2
+4
+8
+16
+32
+This is like for each loop
+
+
+We can do like:
+
+	a=[]
+	(1..5).each{|i| a<<i} we have initialized the empty array.
+
+We can also do like
+	(1..5).map(|i| 2**i)
+We can also denote the block as:
+
+(1..5).map do |i|
+	2**i
+end
+
+
+We can also do like:
+	3.times do 
+		puts "Kushal"
+	end
+	which will display Kushal 3 times
+
+%(a b c) will double quote a b c as "a b c"
+
+%w[a b c]  is the shorthand for ["a", "b", "c"]
+
+we can also do like:
+
+	%w[a b c].map{|string| string.upcase}
+	will return ["A", "B", "C"]
+
+	%w[a b c].map{|char| char.upcase}
+	or Even
+	%w[a b c].map{|kpp| kpp.upcase}
+
+	A compact way to do the same thing is
+		%w[a b c].map(&:upcase)
+
+
+:something What is this colon thing?
+
+How to define hash?
+user = {}  this is an empty hash.. this is different from the curly 
+braces from the blocks
+
+Array are indexed by intergers while hash can be indexed using anything. 
+Hashes do not have orders.
+	user ={ "first" => "Kushal", "last" => "Pradhan" }
+	key value pair
+user ={:first =>"kushal", :last=>"Pradhan"}
+	here we are using symbols as keys instead of strings
+
+differene between symbols and strings:
+
+"name".split('')
+will give ["n", "a", "m", "e"] because as a string name is compressed 
+characters
+while 
+	:name.split('') will give error because it is like one single thing
+
+we can slso do :name.length....symbols can keep track of their length
+	symbols can be compared at once unlike strings like 
+	s="name"
+	s=="name"
+
+symbols will have fast lookup
+we can do user[:first]
+
+	we can iterate through the Hashes.
+
+	user.each do |key, value|
+		puts "Key #{key.inspect} has value #{value.inspect}"
+	end
+
+inspect will present as it is
+
+a=[4,5,6]
+puts a will give 4
+				 5
+				 6
+
+but if I do puts.a.inspect will give [4,5,6]
+
+
+	<%= stylesheet_link_tag 'blueprint/screen', :media=> 'screen'%>
+	is same as doing
+
+	<%= stylesheet_link_tag ('blueprint/screen', {:media=> 'screen'})%>
+
+Inheritance:
+we can do like
+
+	s = "foobar"
+
+	s.class  is String
+	s.class.superclass is object
+	s.class.superclass.superclass is Basic Object and nil above that
+
+
+Class Word
+	def palindrome?(String)
+		string == string.reverse
+	end
+end
+
+w= Word.new
+w.palindrome?("level")
+TRUE
+w.palindrome?("Kushal")
+false
+
+OR we can also do like:
+
+	class Word < String // Words inherits from String
+		def palindrome
+			self= self.reverse
+		end
+	end
+
+w = Word.new("foobar") will give "foobar"
+w.class is Word
+w.palindrome?   is false
+
+Blank method:
+
+"   ".empty?   gives false
+
+"    ".blank?  gives true
+ni.blank?      gives true
+
+
+
+Making Class:
+
+Class user
+	attr_accessor :name, :email
+	
+	def initialize(attributes ={})
+		@name = attributes[:name]
+		@email = attributes[:email]
+	end
+
+	def formatted_email
+		"#{@name} <#{@email}>"
+	end
+end
+
+Now if I add the above code in the new file say, user.rb and put it in 
+the  sample_app then I can do like,
+
+	require './user'
+	user = User[:name =>"Kushal", :email=>"pkushal@uab.edu"]
+	then
+	user.name will give Kushal
+	user.email will give pkushal@uab.edu
+
+	user.formatted_email will give
+		Kushal <pkushal@uab.edu>
+
+Nested Hash:
+param ={}
+param[:user] ={:name =>"Kushal", :email=>"pkushal@uab.edu"}
+//the key user will map to another hash
+
+params will give
+{:user => {:name=>"Kushal", :email=>"pkushal@uab.edu"}}
+
+user = User.new(params[:user])
+
+
+If I do base_title = "Kushal" inside some block then it can only
+be accessed inside that block. However, if I do 
+@base_title="Kushal" it will be an instance varibale and can be 
+accessed outside of the block as well
